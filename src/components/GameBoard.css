@@ -1,0 +1,140 @@
+.game-board {
+  width: 100%;
+  max-width: 1400px;
+  padding: 20px;
+}
+
+.game-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #FFD700;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+  letter-spacing: 3px;
+}
+
+.game-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+@media (max-width: 900px) {
+  .game-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wheel-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.wheel-result {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.controls-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+.message-box {
+  background: rgba(255, 215, 0, 0.2);
+  border: 2px solid #FFD700;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.letter-input-form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.letter-input {
+  width: 80px;
+  height: 60px;
+  font-size: 2rem;
+  text-align: center;
+  border: 3px solid #FFD700;
+  border-radius: 10px;
+  background: white;
+  color: #1e3c72;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.letter-input:focus {
+  outline: none;
+  border-color: #FFA500;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.guess-button,
+.solve-button,
+.new-game-button {
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border: 3px solid #FF6B00;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1e3c72;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+.guess-button:hover,
+.solve-button:hover,
+.new-game-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+}
+
+.guess-button:active,
+.solve-button:active,
+.new-game-button:active {
+  transform: translateY(0);
+}
+
+.round-score {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #FFD700;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.guessed-letters {
+  text-align: center;
+  font-size: 1rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 10px;
+  word-wrap: break-word;
+}
+
+.guessed-letters strong {
+  color: #FFD700;
+}

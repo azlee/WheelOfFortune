@@ -1,0 +1,56 @@
+.wheel-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.wheel {
+  width: 350px;
+  height: 350px;
+  transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4));
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 35px solid #FF0000;
+  z-index: 10;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+.spin-button {
+  padding: 12px 40px;
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border: 3px solid #FF6B00;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #1e3c72;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.spin-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+}
+
+.spin-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.spin-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
