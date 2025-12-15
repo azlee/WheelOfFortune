@@ -83,8 +83,9 @@ function Wheel({ onSpin, disabled }) {
         <circle cx="150" cy="150" r="145" fill="none" stroke="#FFD700" strokeWidth="10" />
 
         {WHEEL_VALUES.map((item, index) => {
-          const textPos = getTextPosition(index, WHEEL_VALUES.length)
           const angle = (360 / WHEEL_VALUES.length) * index + (360 / WHEEL_VALUES.length) / 2
+          const displayText = item.type === 'money' ? `$${item.value}` : item.value
+          const chars = displayText.split('').reverse()
 
           return (
             <g key={index}>
@@ -94,22 +95,28 @@ function Wheel({ onSpin, disabled }) {
                 stroke="#FFFFFF"
                 strokeWidth="2"
               />
-              <text
-                x={textPos.x}
-                y={textPos.y}
-                fill={item.type === 'special' ? '#FFFFFF' : '#000000'}
-                fontSize={item.type === 'special' ? '8' : '14'}
-                fontWeight="bold"
-                textAnchor="middle"
-                dominantBaseline="middle"
-                transform={`rotate(${angle}, ${textPos.x}, ${textPos.y})`}
-              >
-                {item.type === 'money' ? `$${item.value}` : item.value.split(' ').map((word, i) => (
-                  <tspan key={i} x={textPos.x} dy={i === 0 ? 0 : '1em'}>
-                    {word}
-                  </tspan>
-                ))}
-              </text>
+              {chars.map((char, i) => {
+                const radialDistance = 80 + (i * 11)
+                const midAngle = (angle - 90) * (Math.PI / 180)
+                const charX = 150 + radialDistance * Math.cos(midAngle)
+                const charY = 150 + radialDistance * Math.sin(midAngle)
+
+                return (
+                  <text
+                    key={i}
+                    x={charX}
+                    y={charY}
+                    fill={item.type === 'special' ? '#FFFFFF' : '#000000'}
+                    fontSize={item.type === 'special' ? '10' : '16'}
+                    fontWeight="bold"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    transform={`rotate(${angle}, ${charX}, ${charY})`}
+                  >
+                    {char}
+                  </text>
+                )
+              })}
             </g>
           )
         })}
