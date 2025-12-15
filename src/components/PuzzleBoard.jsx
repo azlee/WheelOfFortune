@@ -11,30 +11,50 @@ function PuzzleBoard({ puzzle, revealedLetters, category }) {
 
     if (!puzzle) return grid
 
-    const lines = puzzle.split('\n')
+    const lines = []
+    const inputLines = puzzle.split('\n')
 
-    if (lines.length === 1) {
-      const singleLine = lines[0]
-      const startCol = Math.floor((TILES_PER_ROW - singleLine.length) / 2)
-      singleLine.split('').forEach((char, charIndex) => {
-        const col = startCol + charIndex
-        if (col < TILES_PER_ROW && col >= 0) {
-          grid[0][col] = char
+    inputLines.forEach(inputLine => {
+      if (!inputLine.trim()) {
+        lines.push('')
+        return
+      }
+
+      const words = inputLine.split(' ')
+      let currentLine = ''
+
+      words.forEach((word, wordIndex) => {
+        const testLine = currentLine ? `${currentLine} ${word}` : word
+
+        if (testLine.length <= TILES_PER_ROW) {
+          currentLine = testLine
+        } else {
+          if (currentLine) {
+            lines.push(currentLine)
+          }
+          currentLine = word
         }
       })
-    } else {
-      lines.forEach((line, rowIndex) => {
-        if (rowIndex >= TOTAL_ROWS) return
 
-        const startCol = Math.floor((TILES_PER_ROW - line.length) / 2)
-        line.split('').forEach((char, charIndex) => {
-          const col = startCol + charIndex
-          if (col < TILES_PER_ROW && col >= 0) {
-            grid[rowIndex][col] = char
-          }
-        })
+      if (currentLine) {
+        lines.push(currentLine)
+      }
+    })
+
+    const verticalOffset = Math.floor((TOTAL_ROWS - lines.length) / 2)
+
+    lines.forEach((line, lineIndex) => {
+      const rowIndex = verticalOffset + lineIndex
+      if (rowIndex >= TOTAL_ROWS) return
+
+      const startCol = Math.floor((TILES_PER_ROW - line.length) / 2)
+      line.split('').forEach((char, charIndex) => {
+        const col = startCol + charIndex
+        if (col < TILES_PER_ROW && col >= 0) {
+          grid[rowIndex][col] = char
+        }
       })
-    }
+    })
 
     return grid
   }
