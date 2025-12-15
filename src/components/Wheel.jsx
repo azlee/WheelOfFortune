@@ -94,7 +94,9 @@ function Wheel({ onSpin, disabled }) {
           transform: `rotate(${rotation}deg)`,
           transformOrigin: "50% 50%",
           transformBox: "fill-box",
+          cursor: spinning || disabled ? "default" : "pointer",
         }}
+        onClick={handleSpin}
       >
         <circle cx="150" cy="150" r="145" fill="none" />
 
