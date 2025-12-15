@@ -6,7 +6,7 @@ function PlayerScores({ players, currentPlayerIndex }) {
       {players.map((player, index) => (
         <div
           key={index}
-          className={`player-card ${index === currentPlayerIndex ? 'active' : ''}`}
+          className={`player-card player-${index + 1} ${index === currentPlayerIndex ? 'active' : ''}`}
         >
           <div className="player-name">{player.name}</div>
           <div className="player-score">${player.score}</div>
