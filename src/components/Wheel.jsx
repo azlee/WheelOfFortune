@@ -2,23 +2,25 @@ import { useState } from "react";
 import "./Wheel.css";
 
 const WHEEL_VALUES = [
-  { value: 500, type: "money", color: "#FF0000" },
-  { value: 700, type: "money", color: "#00BFFF" },
-  { value: 600, type: "money", color: "#FFD700" },
+  { value: 200, type: "money", color: "#a17bb7" },
+  { value: 700, type: "money", color: "#54aedf" },
+  { value: 600, type: "money", color: "#e25b56" },
   { value: "BANKRUPT", type: "special", color: "#000000" },
-  { value: 800, type: "money", color: "#FF1493" },
-  { value: 550, type: "money", color: "#00FF7F" },
-  { value: 400, type: "money", color: "#FF4500" },
-  { value: "LOSE A TURN", type: "special", color: "#1a1a1a" },
-  { value: 900, type: "money", color: "#32CD32" },
-  { value: 650, type: "money", color: "#9370DB" },
-  { value: 500, type: "money", color: "#FF6347" },
-  { value: 700, type: "money", color: "#00CED1" },
-  { value: 600, type: "money", color: "#FF69B4" },
-  { value: 350, type: "money", color: "#ADFF2F" },
-  { value: 800, type: "money", color: "#FF00FF" },
-  { value: 450, type: "money", color: "#00FF00" },
-  { value: 500, type: "money", color: "#1E90FF" },
+  { value: 800, type: "money", color: "#f38ba3" },
+  { value: 550, type: "money", color: "#11ae79" },
+  { value: 400, type: "money", color: "#f37232" },
+  { value: "LOSE A TURN", type: "special", color: "#fff" },
+  { value: 250, type: "money", color: "#54aedf" },
+  { value: 950, type: "money", color: "#f9ea26" },
+  { value: 650, type: "money", color: "#9f80bc" },
+  { value: 500, type: "money", color: "#e25b56" },
+  { value: 700, type: "money", color: "#54aedf" },
+  { value: "BANKRUPT", type: "special", color: "#000000" },
+  { value: 600, type: "money", color: "#f38ba3" },
+  { value: 350, type: "money", color: "#17b07b" },
+  { value: 800, type: "money", color: "#f37232" },
+  { value: 450, type: "money", color: "#f9ea26" },
+  { value: 100, type: "money", color: "#f38ba3" },
   { value: "BANKRUPT", type: "special", color: "#000000" },
 ];
 
@@ -81,14 +83,7 @@ function Wheel({ onSpin, disabled }) {
         viewBox="0 0 300 300"
         style={{ transform: `rotate(${rotation}deg)` }}
       >
-        <circle
-          cx="150"
-          cy="150"
-          r="145"
-          fill="none"
-          stroke="#FFD700"
-          strokeWidth="10"
-        />
+        <circle cx="150" cy="150" r="145" fill="none" />
 
         {WHEEL_VALUES.map((item, index) => {
           const angle =
@@ -102,8 +97,6 @@ function Wheel({ onSpin, disabled }) {
               <path
                 d={createWedgePath(index, WHEEL_VALUES.length)}
                 fill={item.color}
-                stroke="#FFFFFF"
-                strokeWidth="2"
               />
               {chars.map((char, i) => {
                 const charSpacing = item.type === "special" ? 5 : 14;
@@ -117,7 +110,11 @@ function Wheel({ onSpin, disabled }) {
                     key={i}
                     x={charX}
                     y={charY}
-                    fill={item.type === "special" ? "#FFFFFF" : "#000000"}
+                    fill={
+                      item.type === "special" && item.value !== "LOSE A TURN"
+                        ? "#FFFFFF"
+                        : "#000000"
+                    }
                     fontSize={item.type === "special" ? "5" : "16"}
                     fontWeight="bold"
                     textAnchor="middle"
@@ -132,14 +129,7 @@ function Wheel({ onSpin, disabled }) {
           );
         })}
 
-        <circle
-          cx="150"
-          cy="150"
-          r="20"
-          fill="#FFD700"
-          stroke="#FF6B00"
-          strokeWidth="3"
-        />
+        <circle cx="150" cy="150" r="30" fill="#d19f3a" />
       </svg>
       <button
         className="spin-button"
