@@ -1,31 +1,31 @@
-import { useState } from 'react'
-import GameSetup from './components/GameSetup'
-import GameBoard from './components/GameBoard'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import GameBoard from "./components/GameBoard";
+import GameSetup from "./components/GameSetup";
 
 function App() {
-  const [gameStarted, setGameStarted] = useState(false)
-  const [gameConfig, setGameConfig] = useState(null)
+  const [gameStarted, setGameStarted] = useState(false);
+  const [gameConfig, setGameConfig] = useState(null);
 
   const handleStartGame = (config) => {
-    setGameConfig(config)
-    setGameStarted(true)
-  }
+    setGameConfig(config);
+    setGameStarted(true);
+  };
 
   const handleNewGame = () => {
-    setGameStarted(false)
-    setGameConfig(null)
-  }
+    setGameStarted(false);
+    setGameConfig(null);
+  };
 
   return (
-    <div className="App">
+    <div className="App city">
       {!gameStarted ? (
         <GameSetup onStartGame={handleStartGame} />
       ) : (
         <GameBoard config={gameConfig} onNewGame={handleNewGame} />
       )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

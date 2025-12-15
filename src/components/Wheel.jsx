@@ -6,7 +6,7 @@ const WHEEL_VALUES = [
   { value: 700, type: "money", color: "#54aedf" },
   { value: 600, type: "money", color: "#e25b56" },
   { value: "BANKRUPT", type: "special", color: "#000000" },
-  { value: 800, type: "money", color: "#f38ba3" },
+  { value: 800, type: "money", color: "#f9ea26" },
   { value: 550, type: "money", color: "#11ae79" },
   { value: 400, type: "money", color: "#f37232" },
   { value: "LOSE A TURN", type: "special", color: "#fff" },
@@ -14,14 +14,12 @@ const WHEEL_VALUES = [
   { value: 950, type: "money", color: "#f9ea26" },
   { value: 650, type: "money", color: "#9f80bc" },
   { value: 500, type: "money", color: "#e25b56" },
-  { value: 700, type: "money", color: "#54aedf" },
   { value: "BANKRUPT", type: "special", color: "#000000" },
   { value: 600, type: "money", color: "#f38ba3" },
   { value: 350, type: "money", color: "#17b07b" },
   { value: 800, type: "money", color: "#f37232" },
   { value: 450, type: "money", color: "#f9ea26" },
   { value: 100, type: "money", color: "#f38ba3" },
-  { value: "BANKRUPT", type: "special", color: "#000000" },
 ];
 
 function Wheel({ onSpin, disabled }) {
@@ -33,18 +31,21 @@ function Wheel({ onSpin, disabled }) {
 
     setSpinning(true);
 
-    const spins = 5 + Math.random() * 3;
     const segmentAngle = 360 / WHEEL_VALUES.length;
-    const randomIndex = Math.floor(Math.random() * WHEEL_VALUES.length);
-    const targetRotation = spins * 360 + randomIndex * segmentAngle;
+    const spins = 5 + Math.random() * 3;
 
-    setRotation(rotation + targetRotation);
+    const winningIndex = Math.floor(Math.random() * WHEEL_VALUES.length);
+
+    const POINTER_ANGLE = -90; // pointer at top
+    const wedgeCenter = -90 + winningIndex * segmentAngle + segmentAngle / 2;
+
+    const targetRotation = spins * 360 + (POINTER_ANGLE - wedgeCenter);
+
+    setRotation((prev) => prev + targetRotation);
 
     setTimeout(() => {
       setSpinning(false);
-      const resultIndex =
-        (WHEEL_VALUES.length - randomIndex) % WHEEL_VALUES.length;
-      onSpin(WHEEL_VALUES[resultIndex]);
+      onSpin(WHEEL_VALUES[winningIndex]);
     }, 3000);
   };
 
@@ -81,7 +82,11 @@ function Wheel({ onSpin, disabled }) {
       <svg
         className="wheel"
         viewBox="0 0 300 300"
-        style={{ transform: `rotate(${rotation}deg)` }}
+        style={{
+          transform: `rotate(${rotation}deg)`,
+          transformOrigin: "50% 50%",
+          transformBox: "fill-box",
+        }}
       >
         <circle cx="150" cy="150" r="145" fill="none" />
 
@@ -133,7 +138,7 @@ function Wheel({ onSpin, disabled }) {
           cx="150"
           cy="150"
           r="30"
-          stroke-width={1}
+          strokeWidth={1}
           stroke={"black"}
           fill="rgb(17, 174, 121)"
         />

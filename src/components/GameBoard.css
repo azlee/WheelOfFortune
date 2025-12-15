@@ -1,15 +1,15 @@
 .game-board {
   width: 100%;
   max-width: 1400px;
-  padding: 20px;
+  padding: 15px;
 }
 
 .game-title {
   text-align: center;
   font-size: 2.5rem;
-  color: #FFD700;
+  color: #ffd700;
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   letter-spacing: 3px;
 }
 
@@ -36,7 +36,7 @@
 .wheel-result {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #FFD700;
+  color: #ffd700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -49,7 +49,7 @@
 
 .message-box {
   background: rgba(255, 215, 0, 0.2);
-  border: 2px solid #FFD700;
+  border: 2px solid #ffd700;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -73,7 +73,7 @@
   height: 60px;
   font-size: 2rem;
   text-align: center;
-  border: 3px solid #FFD700;
+  border: 3px solid #ffd700;
   border-radius: 10px;
   background: white;
   color: #1e3c72;
@@ -83,7 +83,7 @@
 
 .letter-input:focus {
   outline: none;
-  border-color: #FFA500;
+  border-color: #ffa500;
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
 }
 
@@ -91,8 +91,8 @@
 .solve-button,
 .new-game-button {
   padding: 15px 30px;
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-  border: 3px solid #FF6B00;
+  background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+  border: 3px solid #ff6b00;
   border-radius: 10px;
   font-size: 1.2rem;
   font-weight: bold;
@@ -119,7 +119,7 @@
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #FFD700;
+  color: #ffd700;
   background: rgba(0, 0, 0, 0.3);
   padding: 15px;
   border-radius: 10px;
@@ -136,5 +136,5 @@
 }
 
 .guessed-letters strong {
-  color: #FFD700;
+  color: #ffd700;
 }
