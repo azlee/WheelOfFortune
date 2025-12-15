@@ -129,7 +129,14 @@ function Wheel({ onSpin, disabled }) {
           );
         })}
 
-        <circle cx="150" cy="150" r="30" fill="#d19f3a" />
+        <circle
+          cx="150"
+          cy="150"
+          r="30"
+          stroke-width={1}
+          stroke={"black"}
+          fill="rgb(17, 174, 121)"
+        />
       </svg>
       <button
         className="spin-button"
