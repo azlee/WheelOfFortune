@@ -11,7 +11,6 @@ const WHEEL_VALUES = [
   { value: 400, type: "money", color: "#f37232" },
   { value: "LOSE A TURN", type: "special", color: "#fff" },
   { value: 250, type: "money", color: "#54aedf" },
-  { value: 950, type: "money", color: "#f9ea26" },
   { value: 650, type: "money", color: "#9f80bc" },
   { value: 500, type: "money", color: "#e25b56" },
   { value: "BANKRUPT", type: "special", color: "#000000" },
@@ -19,6 +18,7 @@ const WHEEL_VALUES = [
   { value: 350, type: "money", color: "#17b07b" },
   { value: 800, type: "money", color: "#f37232" },
   { value: 450, type: "money", color: "#f9ea26" },
+  { value: "LOSE A TURN", type: "special", color: "#fff" },
   { value: 100, type: "money", color: "#f38ba3" },
 ];
 
@@ -39,9 +39,17 @@ function Wheel({ onSpin, disabled }) {
     const POINTER_ANGLE = -90; // pointer at top
     const wedgeCenter = -90 + winningIndex * segmentAngle + segmentAngle / 2;
 
-    const targetRotation = spins * 360 + (POINTER_ANGLE - wedgeCenter);
+    // Calculate target angle where wedge center aligns with pointer
+    const targetAngle = POINTER_ANGLE - wedgeCenter;
 
-    setRotation((prev) => prev + targetRotation);
+    // Calculate minimum rotation (current + spins)
+    const minRotation = rotation + spins * 360;
+
+    // Find k such that targetAngle + k*360 >= minRotation
+    const k = Math.ceil((minRotation - targetAngle) / 360);
+    const newRotation = targetAngle + k * 360;
+
+    setRotation(newRotation);
 
     setTimeout(() => {
       setSpinning(false);
