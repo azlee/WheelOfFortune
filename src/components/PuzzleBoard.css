@@ -19,12 +19,35 @@
   left: -16px;
   right: -16px;
   bottom: -16px;
-  background: linear-gradient(135deg, #0099ff, #0066cc, #003d7a, #0066cc, #0099ff);
+  background: linear-gradient(
+    var(--gradient-angle),
+    #66ccff 0%,
+    #0099ff 25%,
+    #0066cc 50%,
+    #0099ff 75%,
+    #66ccff 100%
+  );
   border-radius: 20px;
   z-index: -1;
   box-shadow:
     0 0 30px rgba(0, 153, 255, 0.7),
     0 0 60px rgba(0, 153, 255, 0.4);
+  animation: rotateBorder 3s linear infinite;
+}
+
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotateBorder {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
 }
 
 .puzzle-board::after {
