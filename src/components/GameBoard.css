@@ -89,7 +89,8 @@
 
 .guess-button,
 .solve-button,
-.new-game-button {
+.new-game-button,
+.buy-vowel-button {
   padding: 15px 30px;
   background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
   border: 3px solid #ff6b00;
@@ -104,14 +105,47 @@
 
 .guess-button:hover,
 .solve-button:hover,
-.new-game-button:hover {
+.new-game-button:hover,
+.buy-vowel-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
 }
 
 .guess-button:active,
 .solve-button:active,
-.new-game-button:active {
+.new-game-button:active,
+.buy-vowel-button:active {
+  transform: translateY(0);
+}
+
+.vowel-selection {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.vowel-button {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  border: 3px solid #2563a8;
+  border-radius: 10px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+}
+
+.vowel-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.6);
+  background: linear-gradient(135deg, #5aa3f5 0%, #4a90e2 100%);
+}
+
+.vowel-button:active {
   transform: translateY(0);
 }
 

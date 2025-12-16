@@ -4,6 +4,9 @@ import PlayerScores from "./PlayerScores";
 import PuzzleBoard from "./PuzzleBoard";
 import Wheel from "./Wheel";
 
+const VOWELS = ['A', 'E', 'I', 'O', 'U'];
+const VOWEL_COST = 250;
+
 function GameBoard({ config, onNewGame }) {
   const [players, setPlayers] = useState(config.players);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
@@ -127,6 +130,31 @@ function GameBoard({ config, onNewGame }) {
     }
   };
 
+  const handleBuyVowel = () => {
+    if (roundScore < VOWEL_COST) {
+      setMessage(`Not enough money! Need $${VOWEL_COST}.`);
+      return;
+    }
+    setGamePhase("buyVowel");
+    setMessage("Choose a vowel: A, E, I, O, U");
+  };
+
+  const handleVowelSelect = (vowel) => {
+    setRoundScore(roundScore - VOWEL_COST);
+    setGuessedLetters(new Set([...guessedLetters, vowel]));
+
+    const count = config.puzzle.split("").filter((char) => char === vowel).length;
+
+    if (count > 0) {
+      setRevealedLetters(new Set([...revealedLetters, vowel]));
+      setMessage(`Correct! ${count} ${vowel}'s revealed. Spin or solve!`);
+      setGamePhase("spin");
+    } else {
+      setMessage(`Sorry, there is no ${vowel}. Next player!`);
+      setTimeout(() => nextTurn(), 2000);
+    }
+  };
+
   return (
     <div className="game-board">
       <h1 className="game-title">WHEEL OF FORTUNE</h1>
@@ -173,6 +201,26 @@ function GameBoard({ config, onNewGame }) {
             <button onClick={handleSolve} className="solve-button">
               SOLVE PUZZLE
             </button>
+          )}
+
+          {gamePhase === "spin" && !gameWon && roundScore >= VOWEL_COST && (
+            <button onClick={handleBuyVowel} className="buy-vowel-button">
+              BUY A VOWEL ($250)
+            </button>
+          )}
+
+          {gamePhase === "buyVowel" && !gameWon && (
+            <div className="vowel-selection">
+              {VOWELS.filter(v => !guessedLetters.has(v)).map(vowel => (
+                <button
+                  key={vowel}
+                  onClick={() => handleVowelSelect(vowel)}
+                  className="vowel-button"
+                >
+                  {vowel}
+                </button>
+              ))}
+            </div>
           )}
 
           {gameWon && (
