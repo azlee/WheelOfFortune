@@ -72,6 +72,12 @@ function GameBoard({ config, onNewGame }) {
       return;
     }
 
+    if (VOWELS.includes(letter)) {
+      setMessage("Vowels must be bought for $250! Please guess a consonant.");
+      setLetterInput("");
+      return;
+    }
+
     if (guessedLetters.has(letter)) {
       setMessage(`${letter} has already been guessed! Try another letter.`);
       return;
