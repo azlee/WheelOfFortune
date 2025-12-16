@@ -1,10 +1,11 @@
+import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
 import "./GameBoard.css";
 import PlayerScores from "./PlayerScores";
 import PuzzleBoard from "./PuzzleBoard";
 import Wheel from "./Wheel";
 
-const VOWELS = ['A', 'E', 'I', 'O', 'U'];
+const VOWELS = ["A", "E", "I", "O", "U"];
 const VOWEL_COST = 250;
 
 function GameBoard({ config, onNewGame }) {
@@ -20,6 +21,48 @@ function GameBoard({ config, onNewGame }) {
   const [gameWon, setGameWon] = useState(false);
 
   const currentPlayer = players[currentPlayerIndex];
+
+  const triggerConfetti = () => {
+    // Immediate big burst
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+
+    // Continuous confetti from sides
+    const duration = 4000;
+    const animationEnd = Date.now() + duration;
+    const defaults = {
+      startVelocity: 30,
+      spread: 360,
+      ticks: 60,
+      zIndex: 9999,
+    };
+
+    const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 50 * (timeLeft / duration);
+
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      });
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      });
+    }, 250);
+  };
 
   useEffect(() => {
     checkWin();
@@ -40,6 +83,7 @@ function GameBoard({ config, onNewGame }) {
         `${currentPlayer.name} wins with $${currentPlayer.score + roundScore}!`
       );
       setGamePhase("won");
+      triggerConfetti();
     }
   };
 
@@ -130,6 +174,7 @@ function GameBoard({ config, onNewGame }) {
         .split("")
         .filter((char) => /[A-Z]/.test(char));
       setRevealedLetters(new Set(puzzleLetters));
+      triggerConfetti();
     } else {
       setMessage(`Incorrect solution! Next player!`);
       setTimeout(() => nextTurn(), 2000);
@@ -149,7 +194,8 @@ function GameBoard({ config, onNewGame }) {
     setRoundScore(roundScore - VOWEL_COST);
     setGuessedLetters(new Set([...guessedLetters, vowel]));
 
-    const count = config.puzzle.split("").filter((char) => char === vowel).length;
+    const count = config.puzzle.split("").filter((char) => char === vowel)
+      .length;
 
     if (count > 0) {
       setRevealedLetters(new Set([...revealedLetters, vowel]));
@@ -217,7 +263,7 @@ function GameBoard({ config, onNewGame }) {
 
           {gamePhase === "buyVowel" && !gameWon && (
             <div className="vowel-selection">
-              {VOWELS.filter(v => !guessedLetters.has(v)).map(vowel => (
+              {VOWELS.filter((v) => !guessedLetters.has(v)).map((vowel) => (
                 <button
                   key={vowel}
                   onClick={() => handleVowelSelect(vowel)}
